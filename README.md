@@ -1,6 +1,6 @@
 # Base para novos projetos:
 --------------------------------------------------------------------------------
-###Cria um data provaider: 
+Cria um data provaider: 
 (não pode ter a pasta prisma!)
 
 npx prisma init --datasource-provider postgresql
@@ -14,7 +14,7 @@ chmod 777 prisma
 chmod 777 prisma/schema.prisma
 
 --------------------------------------------------------------------------------
-###Cria uma migration nova do banco de dados:
+Cria uma migration nova do banco de dados:
 
 prisma migrate dev --name init
 
