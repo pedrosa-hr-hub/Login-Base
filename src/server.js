@@ -13,9 +13,20 @@ const cors = require('cors');
 app.use(cors({ credentials: true }));
 app.use(express.json());
 
-//cookie parser
-const cookieParser = require('cookie-parser');
-app.use(cookieParser());
+//body parser
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+//session config
+const session = require('express-session');
+app.use(
+    session({
+        secret: 'mysecretkey',
+        resave: false,
+        saveUninitialized: false,
+    })
+);
 
 //routes
 import routes from './routes';
