@@ -1,0 +1,13 @@
+services:
+    postgres:
+        image: postgres
+        volumes:
+            - ./datarestore:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: 'pedro'
+            POSTGRES_PASSWORD: 'data123'
+        ports:
+            - '5432:5432'
+
+volumes:
+    datarestore:

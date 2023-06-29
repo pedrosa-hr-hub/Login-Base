@@ -1,0 +1,5 @@
+node_modules
+prisma_script.txt
+.env
+.vscode
+datarestore
