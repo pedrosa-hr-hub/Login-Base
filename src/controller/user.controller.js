@@ -1,19 +1,53 @@
-import createUser from '../model/user.model';
+import { create_User } from '../model/user.model';
+import { find_UserbyEmail } from '../model/user.model';
 
 const bcrypt = require('bcrypt');
 
 export const create = async (req, res) => {
     try {
-        const password = await req.body.password;
-        const reqdata = await req.body;
+        var password = await req.body.password;
+        var reqdata = await req.body;
         var salt = bcrypt.genSaltSync(8);
         var hash = bcrypt.hashSync(password, salt);
 
         reqdata.password = hash;
 
-        await createUser(reqdata);
+        await create_User(reqdata);
 
         res.status(201).json(reqdata);
+    } catch (e) {
+        res.status(400).json(e);
+    }
+};
+
+export const getUserbyEmail = async (req, res) => {
+    try {
+        const reqdata = await req.body;
+
+        const dbdata = await find_UserbyEmail(reqdata);
+
+        if (dbdata == null) {
+            res.status(401).json('Verify your credentials');
+        } else {
+            const password = await req.body.password;
+
+            bcrypt.compare(password, dbdata.password, (error, result) => {
+                if (result == true) {
+                    const email = reqdata.email;
+                    var salt = bcrypt.genSaltSync(12);
+                    var hash = bcrypt.hashSync(email, salt);
+
+                    req.session.isAuthenticated = true;
+                    req.session.hash = hash;
+
+                    res.json('Session created!');
+                } else {
+                    res.status(401).json(
+                        'Password or E-mail not match! Try agin!'
+                    );
+                }
+            });
+        }
     } catch (e) {
         res.status(400).json(e);
     }
