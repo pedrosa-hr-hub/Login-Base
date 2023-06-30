@@ -1,4 +1,4 @@
-export async function authenticate(req, res, next) {
+export async function auth(req, res, next) {
     if (req.session.isAuthenticated) {
         next();
     } else {

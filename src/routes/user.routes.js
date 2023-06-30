@@ -1,8 +1,8 @@
 import { create, getUserbyEmail } from '../controller/user.controller';
-import { authenticate } from '../controller/user.middleware';
+import { auth } from '../services/AuthBlock';
 
 const userRoutes = (app) => {
-    app.post('/user', create);
+    app.post('/user', auth, create);
     app.get('/userEmail', getUserbyEmail);
 };
 
