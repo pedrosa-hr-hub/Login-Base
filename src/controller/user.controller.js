@@ -75,3 +75,11 @@ export const sendEmailtoUser = async (req, res) => {
         res.status(404).json(e);
     }
 };
+
+export const test = async (req, res) => {
+    try {
+        res.status(200).json('Im ready!');
+    } catch (e) {
+        res.status(404).json(e);
+    }
+};
