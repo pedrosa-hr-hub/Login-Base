@@ -1,5 +1,6 @@
 import { create_User } from '../model/user.model';
 import { find_UserbyEmail } from '../model/user.model';
+import { sendEmail } from '../services/SendEmail';
 
 const bcrypt = require('bcrypt');
 
@@ -16,15 +17,15 @@ export const create = async (req, res) => {
 
         res.status(201).json(reqdata);
     } catch (e) {
-        res.status(400).json(e);
+        res.status(404).json(e);
     }
 };
 
 export const getUserbyEmail = async (req, res) => {
     try {
-        const reqdata = await req.body;
+        var reqdata = await req.body;
 
-        const dbdata = await find_UserbyEmail(reqdata);
+        var dbdata = await find_UserbyEmail(reqdata);
 
         if (dbdata == null) {
             res.status(401).json('Verify your credentials');
@@ -49,6 +50,28 @@ export const getUserbyEmail = async (req, res) => {
             });
         }
     } catch (e) {
-        res.status(400).json(e);
+        res.status(404).json(e);
+    }
+};
+
+export const sendEmailtoUser = async (req, res) => {
+    try {
+        var reqdata = await req.body;
+
+        var dbdata = await find_UserbyEmail(reqdata);
+
+        if (dbdata == null) {
+            res.status(401).json('Verify your email');
+        } else {
+            sendEmail(dbdata.email, dbdata.nome)
+                .then((result) => {
+                    res.status(result.status).json('Success');
+                })
+                .catch((error) => {
+                    res.status(error.status).json(error);
+                });
+        }
+    } catch (e) {
+        res.status(404).json(e);
     }
 };
