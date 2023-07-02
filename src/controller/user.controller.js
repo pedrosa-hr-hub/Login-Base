@@ -94,11 +94,28 @@ export const updateUser = async (req, res) => {
 
             reqdata.password = hash;
 
-            await updateUser(reqdata);
+            await updateUser(dbdata.id);
             res.status(202).json('Success');
         }
     } catch (e) {
         res.send(404).json(e);
+    }
+};
+
+export const drop = async (req, res) => {
+    try {
+        const reqdata = req.body;
+
+        const dbdata = await find_UserbyEmail(reqdata);
+
+        if (!dbdata.id) {
+            res.status(401).json('Verify your email');
+        } else {
+            await deleteUser(dbdata.id);
+        }
+        res.status(202).json('Deleted!');
+    } catch (e) {
+        res.status(400).json(e);
     }
 };
 
