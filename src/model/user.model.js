@@ -29,3 +29,12 @@ export const update_User = async (data) => {
     });
     return user;
 };
+
+export const deleteUser = async (data) => {
+    const user = await prisma.user.delete({
+        where: {
+            id: data.id,
+        },
+    });
+    return user;
+};
