@@ -9,8 +9,6 @@
 +src/services -> Fica os serviços que auxiliam a execução de funções do sistema, envio de e-mail, bloqueador de rota...
 +src/server.js -> Aonde é criado e configurado o servidor.
 
----
-
 ## Configuração de Banco de Dados - Usando Prisma ORM/Prisma Client && Docker Compose
 ```
 npx prisma init --datasource-provider "postgresql", "mysql", "sqlite", "sqlserver", "mongodb" ou "cockroachdb" (não pode ter a pasta prisma!)
@@ -31,7 +29,6 @@ prisma migrate dev --name init
 docker compose up -d
 ```
 
----
 
 ## Configuração do VSCode && Prettier
 
