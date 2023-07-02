@@ -1,6 +1,6 @@
 # Base de Projeto - Login
 
-##Logica de Pastas
+## Logica de Pastas
 
 +src -> Fica os arquivos do projeto.
 +src/controller -> Fila a lógica de execução das funções do sistema, são criadas funções e exportadas.
@@ -9,8 +9,9 @@
 +src/services -> Fica os serviços que auxiliam a execução de funções do sistema, envio de e-mail, bloqueador de rota...
 +src/server.js -> Aonde é criado e configurado o servidor.
 
+---
 
-##Configuração de Banco de Dados - Usando Prisma ORM/Prisma Client && Docker Compose
+## Configuração de Banco de Dados - Usando Prisma ORM/Prisma Client && Docker Compose
 ```
 npx prisma init --datasource-provider "postgresql", "mysql", "sqlite", "sqlserver", "mongodb" ou "cockroachdb" (não pode ter a pasta prisma!)
 ```
@@ -30,7 +31,9 @@ prisma migrate dev --name init
 docker compose up -d
 ```
 
-##Configuração do VSCode && Prettier
+---
+
+## Configuração do VSCode && Prettier
 
 Para acontecer a ação de salvar e já fazer a formatação do prettier, crie uma pasta e insira o json:
 
