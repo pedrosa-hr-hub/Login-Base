@@ -27,4 +27,5 @@ export const update_User = async (data) => {
             password: data.password,
         },
     });
+    return user;
 };
