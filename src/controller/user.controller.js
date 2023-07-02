@@ -2,6 +2,7 @@ import {
     create_User,
     find_UserbyEmail,
     update_User,
+    delete_User,
 } from '../model/user.model';
 import { sendEmail } from '../services/SendEmail';
 
@@ -94,7 +95,7 @@ export const updateUser = async (req, res) => {
 
             reqdata.password = hash;
 
-            await updateUser(dbdata.id);
+            await update_User(dbdata.id);
             res.status(202).json('Success');
         }
     } catch (e) {
@@ -102,7 +103,7 @@ export const updateUser = async (req, res) => {
     }
 };
 
-export const drop = async (req, res) => {
+export const deleteUser = async (req, res) => {
     try {
         const reqdata = req.body;
 
@@ -111,7 +112,7 @@ export const drop = async (req, res) => {
         if (!dbdata.id) {
             res.status(401).json('Verify your email');
         } else {
-            await deleteUser(dbdata.id);
+            await delete_User(dbdata.id);
         }
         res.status(202).json('Deleted!');
     } catch (e) {
