@@ -1,5 +1,5 @@
 import {
-    create,
+    createUser,
     getUserbyEmail,
     sendEmailtoUser,
     test,
@@ -7,7 +7,7 @@ import {
 import { auth } from '../services/AuthBlock';
 
 const userRoutes = (app) => {
-    app.post('/user', auth, create);
+    app.post('/user', auth, createUser);
     app.get('/userEmail', getUserbyEmail);
     app.get('/sendEmail', auth, sendEmailtoUser);
     app.get('/test', auth, test);
