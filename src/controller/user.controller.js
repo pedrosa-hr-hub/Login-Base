@@ -1,10 +1,13 @@
-import { create_User } from '../model/user.model';
-import { find_UserbyEmail } from '../model/user.model';
+import {
+    create_User,
+    find_UserbyEmail,
+    update_User,
+} from '../model/user.model';
 import { sendEmail } from '../services/SendEmail';
 
 const bcrypt = require('bcrypt');
 
-export const create = async (req, res) => {
+export const createUser = async (req, res) => {
     try {
         var password = await req.body.password;
         var reqdata = await req.body;
@@ -41,7 +44,7 @@ export const getUserbyEmail = async (req, res) => {
                     req.session.isAuthenticated = true;
                     req.session.hash = hash;
 
-                    res.json('Session created!');
+                    res.status(200).json('Session created!');
                 } else {
                     res.status(401).json(
                         'Password or E-mail not match! Try agin!'
@@ -58,7 +61,7 @@ export const sendEmailtoUser = async (req, res) => {
     try {
         var reqdata = await req.body;
 
-        var dbdata = await find_UserbyEmail(reqdata);
+        const dbdata = await find_UserbyEmail(reqdata);
 
         if (dbdata == null) {
             res.status(401).json('Verify your email');
@@ -73,6 +76,29 @@ export const sendEmailtoUser = async (req, res) => {
         }
     } catch (e) {
         res.status(404).json(e);
+    }
+};
+
+export const updateUser = async (req, res) => {
+    try {
+        var reqdata = await res.body;
+
+        const dbdata = await find_UserbyEmail(reqdata);
+
+        if (dbdata == null) {
+            res.status(401).json('Verify your email');
+        } else {
+            const password = await req.body.password;
+            var salt = bcrypt.genSaltSync(8);
+            var hash = bcrypt.hashSync(password, salt);
+
+            reqdata.password = hash;
+
+            await updateUser(reqdata);
+            res.status(202).json('Success');
+        }
+    } catch (e) {
+        res.send(404).json(e);
     }
 };
 
