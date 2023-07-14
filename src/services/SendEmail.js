@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const fs = require('fs');
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.office365.com',
@@ -11,11 +12,12 @@ const transporter = nodemailer.createTransport({
 });
 
 export function sendEmail(destEmail, content) {
+    content = fs.readFileSync('public/email.html', 'utf-8');
     const mailOptions = {
         from: process.env.E_MAIL_USER,
         to: destEmail,
         subject: 'Acesso E-mail!',
-        text: content,
+        html: content,
     };
 
     return new Promise((resolve, reject) => {
