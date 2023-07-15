@@ -15,4 +15,23 @@ model User{
   name String
   email String @unique
   password String
+  wallet Wallet[]
+}
+
+model Wallet{
+  id Int @id @default(autoincrement())
+  name String
+  idUser Int
+  stock Stock[]
+  user User @relation(fields: [idUser],references: [id])
+}
+
+model Stock{
+  id Int @id @default(autoincrement())
+  name String
+  ticker String
+  data_buy DateTime
+  medium_price Float
+  idWallet Int
+  wallet Wallet @relation(fields: [idWallet], references: [id])
 }
