@@ -48,7 +48,7 @@ export const getUserbyEmail = async (req, res) => {
                     res.status(200).json('Session created!');
                 } else {
                     res.status(401).json(
-                        'Password or E-mail not match! Try agin!'
+                        'Password or E-mail not match! Try agin!' + error
                     );
                 }
             });
