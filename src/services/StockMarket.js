@@ -4,7 +4,7 @@ export async function catchStock(req, res) {
     try {
         if (req.ticker === null) {
             res.status(400).json({
-                message: 'No ticker in bory, verify requisition',
+                message: 'No ticker in body, verify requisition',
             });
         } else {
             await axios
