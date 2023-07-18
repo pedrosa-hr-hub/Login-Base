@@ -82,7 +82,7 @@ export const sendEmailtoUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
     try {
-        var reqdata = await res.body;
+        var reqdata = await req.body;
 
         const dbdata = await find_UserbyEmail(reqdata);
 
@@ -95,11 +95,11 @@ export const updateUser = async (req, res) => {
 
             reqdata.password = hash;
 
-            await update_User(dbdata.id);
+            await update_User(reqdata);
             res.status(202).json('Success');
         }
     } catch (e) {
-        res.send(404).json(e);
+        res.status(404).json(e);
     }
 };
 
