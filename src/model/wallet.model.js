@@ -16,6 +16,11 @@ export const find_WalletbyName = async (data) => {
     return wallet;
 };
 
+export const find_AllWallet = async () => {
+    const wallet = await prisma.wallet.findMany();
+    return wallet;
+};
+
 export const update_Wallet = async (data) => {
     const wallet = await prisma.wallet.update({
         where: {
