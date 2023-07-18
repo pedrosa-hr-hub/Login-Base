@@ -22,7 +22,12 @@ export const createWallet = async (req, res) => {
 
 export const getAllWallet = async (req, res) => {
     try {
-    } catch (e) {}
+        var dbdata = await find_AllWallet();
+
+        res.status(200).json(dbdata);
+    } catch (e) {
+        res.status(404).json(e);
+    }
 };
 
 export const getOneWallet = async (req, res) => {
