@@ -10,7 +10,14 @@ import { catchStock } from '../services/StockMarket';
 
 export const createWallet = async (req, res) => {
     try {
-    } catch (e) {}
+        var reqdata = await req.body;
+
+        await create_Wallet(reqdata);
+
+        res.status(201).json(reqdata);
+    } catch (e) {
+        res.status(404).json(e);
+    }
 };
 
 export const getAllWallet = async (req, res) => {
