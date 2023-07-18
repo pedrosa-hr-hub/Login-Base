@@ -16,6 +16,11 @@ export const find_UserbyEmail = async (data) => {
     return user;
 };
 
+export const find_AllUser = async () => {
+    const user = await prisma.user.findMany();
+    return user;
+};
+
 export const update_User = async (data) => {
     const user = await prisma.user.update({
         where: {
