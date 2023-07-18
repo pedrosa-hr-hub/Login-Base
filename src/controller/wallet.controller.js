@@ -50,7 +50,20 @@ export const getOneWallet = async (req, res) => {
 
 export const updateWallet = async (req, res) => {
     try {
-    } catch (e) {}
+        const reqdata = await req.body;
+
+        var dbdata = await find_WalletbyName(reqdata);
+
+        if (dbdata != null) {
+            await update_Wallet(reqdata);
+
+            res.status(202).json('Success');
+        } else {
+            res.status(401).json('Verify your email');
+        }
+    } catch (e) {
+        res.status(400).json(e);
+    }
 };
 
 export const deleteWallet = async (req, res) => {
