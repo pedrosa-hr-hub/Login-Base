@@ -16,7 +16,7 @@ export const createWallet = async (req, res) => {
 
         res.status(201).json(reqdata);
     } catch (e) {
-        res.status(404).json(e);
+        res.status(400).json(e);
     }
 };
 
@@ -26,13 +26,26 @@ export const getAllWallet = async (req, res) => {
 
         res.status(200).json(dbdata);
     } catch (e) {
-        res.status(404).json(e);
+        res.status(400).json(e);
     }
 };
 
 export const getOneWallet = async (req, res) => {
     try {
-    } catch (e) {}
+        var reqdata = await req.body;
+
+        if (reqdata.name != null) {
+            var dbdata = await find_WalletbyName(reqdata.name);
+
+            res.status(200).json(dbdata);
+        } else {
+            res.status(400).json(
+                'No name in the body requisition!Plase, verify!'
+            );
+        }
+    } catch (e) {
+        res.status(400).json(e);
+    }
 };
 
 export const updateWallet = async (req, res) => {
